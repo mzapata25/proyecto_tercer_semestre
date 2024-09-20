@@ -57,12 +57,6 @@ void ordenaBurbujaDescendenteString(string arr[], int tam) {
 	}
 }
 
-void asignar(int arr1[][4], int arr2[], int i){
-	for(int j = 0; j <= 4; j++){
-		arr2[j] = arr1[i][j];
-	}
-}
-
 void etiquetas(string arrL[]){
 	for(int i = 0; i <= 4; i++){
 		cout << arrL[i] << "	";
