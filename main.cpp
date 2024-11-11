@@ -1,63 +1,52 @@
 #include <iostream>
+#include <vector>
+#include <string>
+
 using namespace std;
 
-void swap(int arr[], int i, int j) {
-	int aux = arr[i];
-	arr[i] = arr[j];
-	arr[j] = aux;
+class Team{
+	private:
+		string nombre;
+		int puntos;
+		int golesFavor;
+		int golesContra;
+		int difGoles;
+	public:
+		Team();
+		Team(string, int, int, int);
+		void printData();
+		void etiquetas(string[]);
+		void ordenaMergeString(Team[]);
+		void mergeSplitString(vector<string>&, vector<string>&, int, int);
+		void mergeArrayString(vector<string>&, vector<string>&, int, int, int);
+		void copyArrayString(vector<string>&, vector<string>&, int, int);
+		void getArrayString(Team[], string[], int);
+		void ordenaMerge(Team[], int);
+		void mergeSplit(vector<int>&, vector<int>&, int, int);
+		void mergeArray(vector<int>&, vector<int>&, int, int, int);
+		void copyArray(vector<int>&, vector<int>&, int, int);
+		void getArray(Team[], int[], int);
+		void swapString(string[], int, int);
+		void swap(int[], int, int);
+};
+
+Team::Team(){
+	nombre = "01. FC Barcelona";
+	puntos = 33;
+	golesFavor = 40;
+	golesContra = 12;
+	difGoles = golesFavor - golesContra;
 }
 
-void swapString(string arr[], int i, int j) {
-	string aux = arr[i];
-	arr[i] = arr[j];
-	arr[j] = aux;
+Team::Team(string n, int p, int gf, int gc){
+	nombre = n;
+	puntos = p;
+	golesFavor = gf;
+	golesContra = gc;
+	difGoles = gf-gc;
 }
 
-void ordenaBurbujaAscendente(int arr[], int tam) {
-	int size = tam;
-	for (int i = size; i > 0; i--) {
-		for (int j = 0; j < i; j++) {
-			if (arr[j] > arr[j + 1]) {
-				swap(arr, j, j + 1);
-			}
-		}
-	}
-}
-
-void ordenaBurbujaAscendenteString(string arr[], int tam) {
-	int size = tam;
-	for (int i = size; i > 0; i--) {
-		for (int j = 0; j < i; j++) {
-			if (arr[j] > arr[j + 1]) {
-				swapString(arr, j, j + 1);
-			}
-		}
-	}
-}
-
-void ordenaBurbujaDescendente(int arr[], int tam) {
-	int size = tam;
-	for (int i = size; i > 0; i--) {
-		for (int j = 0; j < i; j++) {
-			if (arr[j] < arr[j + 1]) {
-				swap(arr, j, j + 1);
-			}
-		}
-	}
-}
-
-void ordenaBurbujaDescendenteString(string arr[], int tam) {
-	int size = tam;
-	for (int i = size; i > 0; i--) {
-		for (int j = 0; j < i; j++) {
-			if (arr[j] < arr[j + 1]) {
-				swapString(arr, j, j + 1);
-			}
-		}
-	}
-}
-
-void etiquetas(string arrL[]){
+void Team::etiquetas(string arrL[]){
 	for(int i = 0; i <= 4; i++){
 		cout << arrL[i] << "	";
 		if(i == 0){
@@ -66,47 +55,235 @@ void etiquetas(string arrL[]){
 	}
 }
 
-void imprimeDefault(string arrL[], string arrT[], int arr1[][4]){
-	etiquetas(arrL);
-	cout << endl << endl;
-	for(int i = 0; i <= 19; i++){
-		cout << arrT[i] << "		";
-		for(int j = 0; j <= 3; j++){
-			cout << arr1[i][j] << "	";
-		}
-		cout << endl;
-	}
-	
+void Team::printData(){
+	cout << endl << nombre << "		";
+	cout << puntos << "	";
+	cout << golesFavor << "	";
+	cout << golesContra << "	";
+	cout << difGoles << "	";
 }
 
-int main(){
-	int array1[20][4] = {{15, 17, 4, 13}, {11, 9, 2, 7}, {11, 9, 2, 7}, {11, 11, 8, 3}, {10, 8, 6, 2}, {9, 13, 10, 3}, {8, 5, 4, 1}, {8, 4, 4, 0}, {7, 7, 6, 1}, {7, 7, 6, 1}, {7, 8, 8, 0}, {7, 5, 5, 0}, {7, 6, 10, -4}, {5, 4, 6, -2}, {5, 3, 7, -4}, {4, 3, 7, -4}, {4, 2, 13, -11}, {3, 2, 4, -2}, {2, 6, 10, -4}, {1, 3, 10, -7}};
-	string arrayTeams[20] = {"01. Barcelona	", "02. At. Madrid	", "03. Real Madrid	", "04. Villarreal	", "05. Athletic	", "06. Celta Vigo	", "07. Real Betis	", "08. RCD Mallorca", "09. Rayo Vallecano", "10. Alaves	", "11. Girona	", "12. RCD Espanyol", "13. Osasuna	", "14. Sevilla	", "15. Leganes	", "16. Real Sociedad", "17. Valladolid	", "18. Getafe	", "19. UD Las Palmas", "20. Valencia CF	"};
-	string arrayLabels[5] = {"Equipo", "Pts", "GF", "GC", "DG"};
-	int arrayGroupSorted[20] = {};
-	int arrayPositions[20] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};	
 
-	imprimeDefault(arrayLabels, arrayTeams, array1);
-	int number = 0;
-	for(int i = 0; i <= 19; i++){
-		for(int j = 0; j <= 3; j++){
-			if(j == number){
-				arrayGroupSorted[i] = array1[i][j];
+void Team::getArrayString(Team arr[], string newArray[], int el){
+	if(el==0){
+		for(int i{0}; i<20;i++){
+			newArray[i] = arr[i].nombre;
+		}
+	}
+}
+
+void Team::getArray(Team arr[], int newArray[], int el){
+	if(el==1){
+		for(int i{0}; i<20;i++){
+			newArray[i] = arr[i].puntos;
+		}
+	}
+	else if(el==2){
+		for(int i{0}; i<20;i++){
+			newArray[i] = arr[i].golesFavor;
+		}
+	}
+	else if(el==3){
+		for(int i{0}; i<20;i++){
+			newArray[i] = arr[i].golesContra;
+		}
+	}
+	else if(el==4){
+		for(int i{0}; i<20;i++){
+			newArray[i] = arr[i].difGoles;
+		}
+	}
+}
+
+void Team::ordenaMergeString(Team arr[]){
+	string newArray[20];
+	getArrayString(arr, newArray, 0);
+	vector<string> v(newArray, newArray + 20);
+	vector<string> tmp(v.size());
+	mergeSplitString(v, tmp, 0, v.size() - 1);
+	for(int i = 0; i < 20; i++){
+			cout<< v[i] << endl;
+	}
+}
+
+void Team::mergeSplitString(vector<string> &A, vector<string> &B, int low, int high) {
+	int mitad = (high-low) / 2;
+	if(low < high){
+		int mitad = (high+low) / 2;
+		mergeSplitString(A, B, low, mitad);
+		mergeSplitString(A, B, mitad + 1, high);
+		mergeArrayString(A, B, low, mitad, high);
+	}
+}
+
+
+void Team::mergeArrayString(vector<string> &A, vector<string> &B, int low, int mid, int high) {
+	int i_ordenado = low;
+	int i = low;
+	int j = mid + 1;
+	
+	while(i <= mid && j <= high){
+		if(A[i] <= A[j]){
+			B[i_ordenado] = A[i];
+			i++;
+		}
+		else{
+			B[i_ordenado] = A[j];
+			j++;
+		}
+		i_ordenado++;
+	}
+	while(i <= mid){
+		B[i_ordenado] = A[i];
+		i++;
+		i_ordenado++;
+	}
+	while(j <= high){
+		B[i_ordenado] = A[j];
+		j++;
+		i_ordenado++;
+	}
+		
+	copyArrayString(A, B, low, high);
+}
+
+void Team::copyArrayString(vector<string> &A, vector<string> &B, int low, int high) {
+	int i = low;
+	int limit = high;
+	for(i; i <= limit; i++){
+		A[i] = B[i];
+	}
+}
+
+void Team::ordenaMerge(Team arr[], int el){
+	Team tElim{"", -100, -200, -100};
+	int newArray[20];
+	getArray(arr, newArray, el);
+	vector<int> v(newArray, newArray + 20);
+	vector<int> tmp(v.size());
+	mergeSplit(v, tmp, 0, v.size() - 1);
+	//De menor a mayor
+	for(int i = 0; i < 20; i++){
+		for(int j = 0; j < 20; j++){
+			if(el==2){
+				
+			}
+			if(el==3){
+				
+			}
+			if(el==4){
+				if(v[i] == arr[j].difGoles){
+					arr[j].printData();
+					arr[j] = tElim;
+					break;
+				}
 			}
 		}
 	}
-	cout << endl << endl;
-	ordenaBurbujaAscendente(arrayGroupSorted, 19);
-	ordenaBurbujaDescendenteString(arrayTeams, 19);
-	etiquetas(arrayLabels);
-	cout << endl;
-	for(int i = 0; i <= 19; i++){
-		cout << arrayTeams[i] << "		";
-		cout << arrayGroupSorted[i] << "	";
-		for(int j = 1; j <= 3; j++){
-			cout << array1[19 - i][j] << "	";
-		}
-		cout << endl;
+	
+	/* //De mayor a menor
+	for(int i = 19; i >= 0; i--){
+			cout<< v[i] << endl;
 	}
-	return 0;
+	*/
+
 }
+
+void Team::mergeSplit(vector<int> &A, vector<int> &B, int low, int high) {
+	int mitad = (high-low) / 2;
+	if(low < high){
+		int mitad = (high+low) / 2;
+		mergeSplit(A, B, low, mitad);
+		mergeSplit(A, B, mitad + 1, high);
+		mergeArray(A, B, low, mitad, high);
+	}
+}
+
+
+void Team::mergeArray(vector<int> &A, vector<int> &B, int low, int mid, int high) {
+	int i_ordenado = low;
+	int i = low;
+	int j = mid + 1;
+	
+	while(i <= mid && j <= high){
+		if(A[i] <= A[j]){
+			B[i_ordenado] = A[i];
+			i++;
+		}
+		else{
+			B[i_ordenado] = A[j];
+			j++;
+		}
+		i_ordenado++;
+	}
+	while(i <= mid){
+		B[i_ordenado] = A[i];
+		i++;
+		i_ordenado++;
+	}
+	while(j <= high){
+		B[i_ordenado] = A[j];
+		j++;
+		i_ordenado++;
+	}
+		
+	copyArray(A, B, low, high);
+}
+
+void Team::copyArray(vector<int> &A, vector<int> &B, int low, int high) {
+	int i = low;
+	int limit = high;
+	for(i; i <= limit; i++){
+		A[i] = B[i];
+	}
+}
+
+void Team::swapString(string arr[], int i, int j) {
+	string aux = arr[i];
+	arr[i] = arr[j];
+	arr[j] = aux;
+}
+
+void Team::swap(int arr[], int i, int j) {
+	int aux = arr[i];
+	arr[i] = arr[j];
+	arr[j] = aux;
+}
+
+
+int main() {
+    int element = 0;
+	string arrayLabels[5] = {"Equipo", "Pts", "GF", "GC", "DG"};
+	Team t01{};
+	t01.etiquetas(arrayLabels);
+	Team t02{"02. Real Madrid	", 27, 25, 11};
+	Team t03{"03. At. Madrid	", 26, 19, 7};
+	Team t04{"04. Villarreal	", 24, 23, 19};
+	Team t05{"05. Osasuna	", 21, 17, 20};
+	Team t06{"06. Athletic	", 20, 19, 13};
+	Team t07{"07. Real Betis	", 20, 14, 12};
+	Team t08{"08. Real Sociedad", 18, 11, 10};
+	Team t09{"09. RCD Mallorca", 18, 10, 10};
+	Team t10{"10. Girona	", 18, 16, 17};
+	Team t11{"11. Celta Vigo	", 17, 10, 22};
+	Team t12{"12. Rayo Vallecano", 16, 13, 13};
+	Team t13{"13. Sevilla	", 15, 12, 18};
+	Team t14{"14. Leganes	", 14, 13, 16};
+	Team t15{"15. Alaves	", 13, 14, 22};
+	Team t16{"16. UD Las Palmas", 12, 16, 22};
+	Team t17{"17. Getafe	", 10, 8, 11};
+	Team t18{"18. RCD Espanyol", 10, 11, 22};
+	Team t19{"19. Valladolid	", 9, 10, 25};
+	Team t20{"20. Valencia CF	", 7, 8, 17};
+	Team arregloEquipos[20] {t01,t02,t03,t04,t05,t06,t07,t08,t09,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20};
+    for(int i{0}; i < 20; i++){
+		if(i==17){
+			cout << endl << "		--- Zona de descenso ---";
+		}
+		arregloEquipos[i].printData();
+	}
+	cout << endl << endl;
+	t01.ordenaMerge(arregloEquipos, 4);
+    return 0;
+}
+
