@@ -8,8 +8,7 @@ Despliega la tabla conteniendo la información sobre los 20 equipos de la liga e
 
 ## Instrucciones para compilar el avance de proyecto
 Ejecuta el siguiente comando en la terminal:
-
-`g++ main.cpp -o tercer_avance` 
+`g++ -std=c++11 main.cpp -o tercer_avance` 
 
 ## Instrucciones para ejecutar el avance de proyecto
 Ejecuta el siguiente comando en la terminal:
