@@ -19,10 +19,10 @@ Ejecuta el siguiente comando en la terminal:
 `./tercer_avance` 
 
 ## Descripción de las entradas del avance de proyecto
-Toda la información está contenida en el main, tan solo se utilizan el "#include <iostream>", "#include <vector>" y "#include <string>" que no requiere de ningún archivo adicional.
+Toda la información está contenida en el main, tan solo se utilizan el "#include <iostream>", "#include <vector>" y "#include <string>", excepto las estadísticas de los equipos, que se encuentran en el archivo .csv de este repositorio. Además, permite al usuario modificar datos de equipos.
 
 ## Descripción de las salidas del avance de proyecto
-Despliega los resultados de la liga española de fútbol según orden descendente de puntos (orden "por defecto") y demás órdenes (ascendentes y descendentes), o sea, por goles a favor, goles en contra y diferencia de goles.
+Despliega los resultados de la liga española de fútbol según orden descendente de puntos (orden "por defecto") y demás órdenes (ascendentes y descendentes), o sea, por goles a favor, goles en contra y diferencia de goles. Además, guarda los datos modificados por el usuario en el .csv para uso futuro.
 ## Desarrollo de competencias
 
 ### SICT0301: Evalúa los componentes
@@ -34,3 +34,6 @@ Un caso promedio sería, pues, cualquiera que no sea estos dos, ya que el orden 
 ### SICT0302: Toma decisiones
 #### Selecciona un algoritmo de ordenamiento adecuado al problema y lo usa correctamente.
 El merge sort ha sido escogido al ser el algoritmo de ordenación de los aprendidos en clase más estable, al tener una complejidad de O(n*log(n)) en todos los casos, así no se altera la capacidad de procesar y ordenar los datos del sistema en ningún caso, siendo este algoritmo la mejor opción para hacer aquí el ordenamiento.
+
+#### Selecciona una estructura de datos adecuada al problema y la usa correctamente.
+Para esto se ha usado la estructura de array para contener 20 objetos de la clase Team que representan a cada equipo.
