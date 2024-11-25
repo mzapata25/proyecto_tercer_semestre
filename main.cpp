@@ -310,7 +310,8 @@ void Team::reemplazarCampo(const string& archivo, Team arr[]) {
 			if(variable==1){
 				string nuevoNombre;
 				cout << endl <<"Introduce nuevo nombre:" << endl;
-				cin >> nuevoNombre;
+				cin.ignore();
+				getline(cin, nuevoNombre, '\n');
 				nombre = nuevoNombre;
 			}
 			else if(variable==2){
