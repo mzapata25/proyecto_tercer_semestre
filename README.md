@@ -31,6 +31,10 @@ Se utiliza un merge sort para ordenar la tabla , tiene un O(n*log(n)) para todos
 El mejor de todos los casos sería, por ejemplo, ordenar la tabla por orden descendente de puntuación, que es el orden por defecto de una liga de fútbol, ya que no se alteraría nada el primer orden dado.
 El peor de todos los casos sería, por ejemplo, ordenar la tabla por orden ascendente de puntuación, siendo este exactamente el opuesto del orden por defecto.
 Un caso promedio sería, pues, cualquiera que no sea estos dos, ya que el orden no se tiene que modificar en su totalidad, pero tampoco sería idéntico al original.
+
+#### Hace un análisis de complejidad correcto y completo de todas las estructuras de datos y cada uno de sus usos en el programa.
+Se utilizan los arrays como estructura de datos, además de vectores para el merge sort. La implementación del merge sort vista en clase usaba vectores para poder ordenar los diferentes números, aquí se usó para ordenar las diferentes estadísticas. Similar al array, el vector tiene una complejidad de O(1) en el acceso, hecho que se utilizó para ir cambiando las diferentes variables hasta que estuvieran ordenadas. Para almacenar la lista de los objetos que representaban a los equipos (almacenados así ya que cada uno tenía varias características que se repetían en todos los equipos, hecho que hizo que fuera óptimo representar a cada equipo como un objeto de clase Team) se utilizó un array de objetos tipos Team. Para acceder a cada uno, hay una complejidad de O(1), ya que si se quiere cambiar un dato de un equipo basta con acceder a él y modificar el dato que se busca.
+
 ### SICT0302: Toma decisiones
 #### Selecciona un algoritmo de ordenamiento adecuado al problema y lo usa correctamente.
 El merge sort ha sido escogido al ser el algoritmo de ordenación de los aprendidos en clase más estable, al tener una complejidad de O(n*log(n)) en todos los casos, así no se altera la capacidad de procesar y ordenar los datos del sistema en ningún caso, siendo este algoritmo la mejor opción para hacer aquí el ordenamiento.
