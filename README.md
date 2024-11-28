@@ -60,3 +60,6 @@ El programa despliega la tabla de posiciones con el orden predeterminado, o sea,
 
 #### Implementa mecanismos de lectura de archivos para cargar datos a las estructuras de manera correcta.
 El programa viene dotado de un archivo .csv anexo. Este archivo ya contiene los datos de los equipos, y con la función de asignaDatos, se cargan estos datos (primeramente) a los objetos de clase Team que forman parte del array arregloEquipos. Luego, para poder desplegarlos, también se cargan en un BST, que, a su vez, mediante inOrder, se encarga de ordenarlos.
+
+#### Implementa mecanismos de escritura de archivos para guardar los datos  de las estructuras de manera correcta.
+El programa permite al usuario modificar los datos de los equipos (tanto el nombre como las diferentes estadísticas), cambios que se quedan guardados en el archivo .csv, además se reflejarán cada vez que se utilice el BST para volver a desplegar los datos al usuario. Estos cambios perduran entre diferentes usos del programa, permitiendo que se use para modificarlo a lo largo del tiempo, sin tener que volver a comenzar desde cero.
