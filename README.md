@@ -52,3 +52,11 @@ El merge sort ha sido escogido al ser el algoritmo de ordenación de los aprendi
 
 #### Selecciona una estructura de datos adecuada al problema y la usa correctamente.
 Para esto se ha usado la estructura de array para contener 20 objetos de la clase Team que representan a cada equipo. Se ha elegido fundamentalmente hacer uso de arrays al tener una complejidad de acceso O(1) en el mejor, promedio y peor de los casos. Al ser una plantilla fija, no es necesario añadir ni remover equipos. Cada equipo es un objeto con sus diferentes propiedades, como la posición, el nombre, los puntos, los goles a favor y en contra y la diferencia de goles. Otras estructuras no tiene esa facilidad de acceso, por lo tanto, no son tan aptas para este problema en específico.
+
+
+### SICT0303B: Implementa acciones científicas
+#### Implementa mecanismos para consultar información de las estructuras correctos y útiles dentro de un programa.
+El programa despliega la tabla de posiciones con el orden predeterminado, o sea, después de su ordenamiento a través del inOrder del BST, se verán en orden descendente (de mayor a menor) de puntos, según la información en el archivo .csv. Además, permite ordenar según diferentes criterios, no solo la puntuación.
+
+#### Implementa mecanismos de lectura de archivos para cargar datos a las estructuras de manera correcta.
+El programa viene dotado de un archivo .csv anexo. Este archivo ya contiene los datos de los equipos, y con la función de asignaDatos, se cargan estos datos (primeramente) a los objetos de clase Team que forman parte del array arregloEquipos. Luego, para poder desplegarlos, también se cargan en un BST, que, a su vez, mediante inOrder, se encarga de ordenarlos.
