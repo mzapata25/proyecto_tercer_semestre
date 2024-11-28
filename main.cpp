@@ -24,11 +24,6 @@ class Team{
 		void asignaDatos(Team[]);
 		void printData();
 		void etiquetas(string[]);
-		void ordenaMerge(Team[], int, int, int[]);
-		void mergeSplit(vector<int>&, vector<int>&, int, int);
-		void mergeArray(vector<int>&, vector<int>&, int, int, int);
-		void copyArray(vector<int>&, vector<int>&, int, int);
-		void getArray(Team[], int[], int);
 		void reemplazarCampo(const string&, Team[]);
 		
 		friend class BST;
