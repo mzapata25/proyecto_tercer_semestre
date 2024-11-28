@@ -19,7 +19,13 @@ Ejecuta el siguiente comando en la terminal:
 `./tercer_avance` 
 
 ## Descripción de las entradas del avance de proyecto
-Toda la información está contenida en el main, tan solo se utilizan el "#include <iostream>", "#include <vector>" y "#include <string>", excepto las estadísticas de los equipos, que se encuentran en el archivo .csv de este repositorio. Además, permite al usuario modificar datos de equipos.
+Toda la información está contenida en el main, tan solo se utilizan el 
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <fstream>
+#include <vector>
+#include <string>, excepto las estadísticas de los equipos, que se encuentran en el archivo .csv de este repositorio. Además, permite al usuario modificar datos de equipos.
 
 ## Descripción de las salidas del avance de proyecto
 Despliega los resultados de la liga española de fútbol según orden descendente de puntos (orden "por defecto") y demás órdenes (ascendentes y descendentes), o sea, por goles a favor, goles en contra y diferencia de goles. Además, guarda los datos modificados por el usuario en el .csv para uso futuro.
@@ -33,7 +39,7 @@ El peor de todos los casos sería, por ejemplo, ordenar la tabla por orden ascen
 Un caso promedio sería, pues, cualquiera que no sea estos dos, ya que el orden no se tiene que modificar en su totalidad, pero tampoco sería idéntico al original.
 
 #### Hace un análisis de complejidad correcto y completo de todas las estructuras de datos y cada uno de sus usos en el programa.
-Se utilizan los arrays como estructura de datos, además de vectores para el merge sort. La implementación del merge sort vista en clase usaba vectores para poder ordenar los diferentes números, aquí se usó para ordenar las diferentes estadísticas. Similar al array, el vector tiene una complejidad de O(1) en el acceso, hecho que se utilizó para ir cambiando las diferentes variables hasta que estuvieran ordenadas. Para almacenar la lista de los objetos que representaban a los equipos (almacenados así ya que cada uno tenía varias características que se repetían en todos los equipos, hecho que hizo que fuera óptimo representar a cada equipo como un objeto de clase Team) se utilizó un array de objetos tipos Team. Para acceder a cada uno, hay una complejidad de O(1), ya que si se quiere cambiar un dato de un equipo basta con acceder a él y modificar el dato que se busca.
+Se utiliza como estructura de datos el BST, que tiene como complejidad O(log(n)) para todos sus usos en el mejor de los casos y O(n) para todos sus usos en el peor de los casos. Los datos están originalmente en el archivo .csv, de allí se asignan a los objetos de clase Team, y después se insertan esos datos en un BST, para poder ordenar y manejarlos mejor. Además, se usó el tipo inOrder, para poder determinar el orden de los equipos en todas sus estadísticas. Además, si se modifica los puntos de un equipo, las posiciones se modificarán acorde a eso.
 
 #### Hace un análisis de complejidad correcto y completo para todos los demás componentes del programa y determina la complejidad final del programa.
 El programa en su conjunto tiene O(n log(n)), ya que el componente con complejidad más alta del progra es el mergeSort, siendo esa su complejidad. Para otros compenentes del programa, se espera una complejidad de O(1) para cada equipo que se depliega en pantalla, ya que directamente del array con los objetos de tipo Team se obtiene la información de cada uno y se pone en la pantalla. 
