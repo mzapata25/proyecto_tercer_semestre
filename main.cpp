@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class BST;
+
 class Team{
 	private:
 		int posicion;
@@ -28,6 +30,8 @@ class Team{
 		void copyArray(vector<int>&, vector<int>&, int, int);
 		void getArray(Team[], int[], int);
 		void reemplazarCampo(const string&, Team[]);
+		
+		friend class BST;
 };
 
 Team::Team(){
@@ -58,8 +62,10 @@ void Team::asignaDatos(Team arr[]){
     {
 
         stringstream stream(linea); // Convertir la cadena a un stream
-        string nom, pun, golF, golC;
+        string pos, nom, pun, golF, golC;
         // Extraer todos los valores de esa fila
+		getline(stream, pos, delimitador);
+		arr[i].posicion = stoi(pos);
 		getline(stream, nom, delimitador);
 		arr[i].nombre = nom;
         getline(stream, pun, delimitador);
@@ -95,178 +101,6 @@ void Team::printData(){
 }
 
 
-void Team::getArray(Team arr[], int newArray[], int el){
-	if(el==1){
-		for(int i{0}; i<20;i++){
-			newArray[i] = arr[i].puntos;
-		}
-	}
-	else if(el==2){
-		for(int i{0}; i<20;i++){
-			newArray[i] = arr[i].golesFavor;
-		}
-	}
-	else if(el==3){
-		for(int i{0}; i<20;i++){
-			newArray[i] = arr[i].golesContra;
-		}
-	}
-	else if(el==4){
-		for(int i{0}; i<20;i++){
-			newArray[i] = arr[i].difGoles;
-		}
-	}
-}
-
-
-void Team::ordenaMerge(Team arr[], int el, int way, int arrP[]){
-	Team tElim{0, "", -100, -200, -100};
-	int newArray[20];
-	getArray(arr, newArray, el);
-	vector<int> v(newArray, newArray + 20);
-	vector<int> tmp(v.size());
-	mergeSplit(v, tmp, 0, v.size() - 1);
-	//De menor a mayor
-	if(way == 1){
-		int aux = 20;
-		for(int i = 0; i < 20; i++){
-			for(int j = 0; j < 20; j++){
-				if(el==1){
-					if(v[i] == arr[j].puntos){
-						arr[j].posicion = aux;
-						arrP[j] = arr[j].posicion;
-						if(i==3){
-							cout << endl << "		--- Zona de descenso ---";
-						}						
-						arr[j].printData();
-						arr[j] = tElim;
-						aux--;
-						break;
-					}
-				}				
-				if(el==2){
-					if(v[i] == arr[j].golesFavor){
-						arr[j].posicion = arrP[j];
-						arr[j].printData();
-						arr[j] = tElim;
-						break;
-					}
-				}
-				if(el==3){
-					if(v[i] == arr[j].golesContra){
-						arr[j].posicion = arrP[j];
-						arr[j].printData();
-						arr[j] = tElim;
-						break;
-					}
-				}
-				if(el==4){
-					if(v[i] == arr[j].difGoles){
-						arr[j].posicion = arrP[j];
-						arr[j].printData();
-						arr[j] = tElim;
-						break;
-					}
-				}
-			}
-		}
-	}
-	cout << endl << endl;
-	//De mayor a menor
-	if(way == 0){
-		int aux = 1;		
-		for(int i = 19; i >= 0; i--){
-			for(int j = 19; j >= 0; j--){
-				if(el==1){
-					if(v[i] == arr[j].puntos){
-						arr[j].posicion = aux;
-						arrP[j] = arr[j].posicion;
-						arr[j].printData();
-						if(i==3){
-							cout << endl << "		--- Zona de descenso ---";
-						}						
-						arr[j] = tElim;
-						aux++;
-						break;
-					}
-				}					
-				if(el==2){
-					if(v[i] == arr[j].golesFavor){
-						arr[j].posicion = arrP[j];
-						arr[j].printData();
-						arr[j] = tElim;
-						break;
-					}
-				}
-				if(el==3){
-					if(v[i] == arr[j].golesContra){
-						arr[j].posicion = arrP[j];
-						arr[j].printData();
-						arr[j] = tElim;
-						break;
-					}
-				}
-				if(el==4){
-					if(v[i] == arr[j].difGoles){
-						arr[j].posicion = arrP[j];
-						arr[j].printData();
-						arr[j] = tElim;
-						break;
-					}
-				}
-			}
-		}
-	}
-}
-
-void Team::mergeSplit(vector<int> &A, vector<int> &B, int low, int high) {
-	int mitad = (high-low) / 2;
-	if(low < high){
-		int mitad = (high+low) / 2;
-		mergeSplit(A, B, low, mitad);
-		mergeSplit(A, B, mitad + 1, high);
-		mergeArray(A, B, low, mitad, high);
-	}
-}
-
-
-void Team::mergeArray(vector<int> &A, vector<int> &B, int low, int mid, int high) {
-	int i_ordenado = low;
-	int i = low;
-	int j = mid + 1;
-	
-	while(i <= mid && j <= high){
-		if(A[i] <= A[j]){
-			B[i_ordenado] = A[i];
-			i++;
-		}
-		else{
-			B[i_ordenado] = A[j];
-			j++;
-		}
-		i_ordenado++;
-	}
-	while(i <= mid){
-		B[i_ordenado] = A[i];
-		i++;
-		i_ordenado++;
-	}
-	while(j <= high){
-		B[i_ordenado] = A[j];
-		j++;
-		i_ordenado++;
-	}
-		
-	copyArray(A, B, low, high);
-}
-
-void Team::copyArray(vector<int> &A, vector<int> &B, int low, int high) {
-	int i = low;
-	int limit = high;
-	for(i; i <= limit; i++){
-		A[i] = B[i];
-	}
-}
 
 
 
@@ -278,7 +112,7 @@ void Team::reemplazarCampo(const string& archivo, Team arr[]) {
 	getline(cin, nombreEquipo, '\n');
 	ifstream entrada(archivo);
 
-    string archivoTemporal = "temp.csv"; // Archivo temporal
+    string archivoTemporal = "temp.csv"; 
     ofstream salida(archivoTemporal);
 
     string linea;
@@ -290,23 +124,21 @@ void Team::reemplazarCampo(const string& archivo, Team arr[]) {
 	cout << "Para modificar goles a favor de equipo, introduce 3." << endl;
 	cout << "Para modificar goles en contra de equipo, introduce 4." << endl;
 	cin >> variable;
-    // Leer encabezados y escribirlos en el archivo temporal
     if (getline(entrada, linea)) {
-        salida << linea << endl;
+		salida << linea << endl;
     }
 
-    // Procesar las líneas del archivo
     while (getline(entrada, linea)) {
         stringstream stream(linea);
-        string nombre, puntos, golesFavor, golesContra;
+        string posicion, nombre, puntos, golesFavor, golesContra;
+		getline(stream, posicion, delimitador);
         getline(stream, nombre, delimitador);
         getline(stream, puntos, delimitador);
         getline(stream, golesFavor, delimitador);
         getline(stream, golesContra, delimitador);
-		//cout << nombre << "		" << nombreEquipo << endl;
 
         if (nombre == nombreEquipo) {
-            encontrado = true;
+			encontrado = true;
 			if(variable==1){
 				string nuevoNombre;
 				cout << endl <<"Introduce nuevo nombre:" << endl;
@@ -336,32 +168,136 @@ void Team::reemplazarCampo(const string& archivo, Team arr[]) {
 			}
         }
 
-        // Escribir la línea (modificada o no) en el archivo temporal
-        salida << nombre << delimitador << puntos << delimitador << golesFavor << delimitador << golesContra << endl;
+        salida << posicion << delimitador << nombre << delimitador << puntos << delimitador << golesFavor << delimitador << golesContra << endl;
     }
 
     entrada.close();
     salida.close();
 
-    // Reemplazar el archivo original con el archivo temporal
+    
     if (encontrado) {
 		if (remove(archivo.c_str()) != 0 || rename(archivoTemporal.c_str(), archivo.c_str()) != 0) {
-            //cerr << "Error al reemplazar el archivo original." << endl;
+            
         } else {
-            //cout << "Campo actualizado con éxito." << endl;
+            
         }
 	}
     else {
-        //cerr << "Equipo no encontrado. No se realizaron cambios." << endl;
-        remove(archivoTemporal.c_str()); // Eliminar archivo temporal
+       
+        remove(archivoTemporal.c_str()); 
     }
 }
+
+class TreeNode {
+	private:	
+		Team data;
+		TreeNode* left;
+		TreeNode* right;
+
+		TreeNode(Team team) : data(team), left(nullptr), right(nullptr) {}
+		
+		friend class BST;
+		
+};
+
+class BST {
+    TreeNode* root;
+
+    void inOrder(TreeNode* node, vector<Team>& sortedTeams) {
+		if (node == nullptr) return;
+        inOrder(node->left, sortedTeams);
+        sortedTeams.push_back(node->data);
+        inOrder(node->right, sortedTeams);
+    }
+
+   TreeNode* insert(TreeNode* node, Team team, int key, int attribute) {
+        if (node == nullptr) return new TreeNode(team);
+        if(attribute==1){
+			if (key < node->data.puntos){
+				node->left = insert(node->left, team, key,attribute);
+			}
+			else{
+				node->right = insert(node->right, team, key,attribute);
+			}
+
+		}
+		else if(attribute==2){
+			if (key < node->data.golesFavor){ 
+				node->left = insert(node->left, team, key,attribute);
+			}
+			else{
+				node->right = insert(node->right, team, key,attribute);
+			}
+
+		}
+		else if(attribute==3){
+			if (key < node->data.golesContra){ 
+				node->left = insert(node->left, team, key,attribute);
+			}
+			else{
+				node->right = insert(node->right, team, key,attribute);
+			}
+		}
+		else if(attribute==4){
+			if (key < node->data.difGoles){
+				node->left = insert(node->left, team, key,attribute);
+			}
+			else{
+				node->right = insert(node->right, team, key,attribute);
+			}
+
+		}
+		return node;
+   }
+   
+   void inOrderTraversal(TreeNode* root, int& positionCounter, int attribute, int way) {
+    if (root != nullptr) {
+		inOrderTraversal(root->right, positionCounter, attribute, way);
+		if(positionCounter==18){
+			cout << endl << "		--- Zona de descenso ---";
+		}
+        if(attribute==1){
+			root->data.posicion = positionCounter++;
+		}
+        root->data.printData(); 
+        inOrderTraversal(root->left, positionCounter, attribute, way);
+		}
+	}
+
+
+
+public:
+    BST() : root(nullptr) {}
+
+    void insert(Team team, int attribute) {
+		if(attribute==1){
+			root = insert(root, team, team.puntos, 1);
+		}
+		else if(attribute==2){
+			root = insert(root, team, team.golesFavor, 2);
+		}
+		else if(attribute==3){
+			root = insert(root, team, team.golesContra, 3);
+		}
+		else if(attribute==4){
+			root = insert(root, team, team.difGoles, 4);
+		}
+    }
+
+    vector<Team> getSortedTeams(int attribute, int way) {
+        vector<Team> sortedTeams;
+		int positionCounter = 1; 
+		inOrderTraversal(root, positionCounter, attribute, way);
+        return sortedTeams;
+    }
+
+};
 
 
 int main() {
 	int element = 0;
 	int command;
-	int modifier;
+	int modifier = 1;
 	int way;
 	int arrPos[20];
 		string arrayLabels[6] = {"Pos.", "Equipo", "Pts", "GF", "GC", "DG"};
@@ -386,38 +322,38 @@ int main() {
 		Team t19{};
 		Team t20{};
 		Team arregloEquipos[20] {t01,t02,t03,t04,t05,t06,t07,t08,t09,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20};
-		//t01.reemplazarCampo(EQUIPOS, "FC Barcelona", 60);
 		t01.asignaDatos(arregloEquipos);
-		//t01.reemplazarCampo(EQUIPOS, 0);
 		t01.etiquetas(arrayLabels);
-		t01.ordenaMerge(arregloEquipos,1,0, arrPos);
-	while(command != 5){
-		string arrayLabels[6] = {"Pos.", "Equipo", "Pts", "GF", "GC", "DG"};
-		t01.asignaDatos(arregloEquipos);
-		cout << endl << endl;
-		cout << "Para ordenar por puntuacion, introduce 1" << endl;
-		cout << "Para goles a favor, introduce 2" << endl;
-		cout << "Para goles en contra, introduce 3" << endl;
-		cout << "Para diferencia de goles, introduce 4" << endl;
-		cout << endl << "Para salir introduce tan solo el numero 5." << endl;
-		cout << "Para modificar algun registro, introduce 6." << endl;
-		cin >> command;
-		if(command == 5){
-			break;
+		BST bst;
+		for (int i = 0; i < 20; i++) {
+			bst.insert(arregloEquipos[i],1);
 		}
-		else if(command == 6){
-			t01.reemplazarCampo(EQUIPOS, arregloEquipos);
-		}
-		else{
-			cout << endl << "Para orden ascendente, introduzca 1, para orden descendente, introduzca 0" << endl;
-			cin >> way;
-			cout << endl << endl;
-			t01.etiquetas(arrayLabels);
-			if (command > 0 and command < 5){
-				t01.ordenaMerge(arregloEquipos, command, way, arrPos);
+		vector<Team> sortedTeams = bst.getSortedTeams(1, 1);
+		cout << endl;
+		while(modifier!=0){
+			cout << endl << endl << "Para cerrar el programa, introduce 0" << endl;
+			cout << "Para ordenar por puntuacion, introduce 1" << endl;
+			cout << "Para ordenar por goles a favor, introduce 2" << endl;
+			cout << "Para ordenar por goles en contra, introduce 3" << endl;
+			cout << "Para ordenar por diferencia de goles, introduce 4." << endl;
+			cout << "Para modificar registros, introduce 5." << endl;
+			cin>>command;
+			if(command==0){
+				break;
 			}
-			cout << endl << endl;
+			else if(command==5){
+				t01.reemplazarCampo(EQUIPOS, arregloEquipos);
+			}
+			else{
+				t01.asignaDatos(arregloEquipos);
+				cout << endl << endl;
+				BST bst2;
+				t01.etiquetas(arrayLabels);
+				for (int i = 0; i < 20; i++) {
+					bst2.insert(arregloEquipos[i],command);
+				}
+				vector<Team> sortedTeams2 = bst2.getSortedTeams(command, 1);
+			}
 		}
-	}
     return 0;
 }
