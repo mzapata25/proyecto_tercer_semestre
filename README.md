@@ -42,8 +42,9 @@ Un caso promedio sería, pues, cualquiera que no sea estos dos, ya que el orden 
 Se utiliza como estructura de datos el BST, que tiene como complejidad O(log(n)) para todos sus usos en el mejor de los casos y O(n) para todos sus usos en el peor de los casos. Los datos están originalmente en el archivo .csv, de allí se asignan a los objetos de clase Team, y después se insertan esos datos en un BST, para poder ordenar y manejarlos mejor. Además, se usó el tipo inOrder, para poder determinar el orden de los equipos en todas sus estadísticas. Además, si se modifica los puntos de un equipo, las posiciones se modificarán acorde a eso.
 
 #### Hace un análisis de complejidad correcto y completo para todos los demás componentes del programa y determina la complejidad final del programa.
-El programa en su conjunto tiene O(n log(n)), ya que el componente con complejidad más alta del progra es el mergeSort, siendo esa su complejidad. Para otros compenentes del programa, se espera una complejidad de O(1) para cada equipo que se depliega en pantalla, ya que directamente del array con los objetos de tipo Team se obtiene la información de cada uno y se pone en la pantalla. 
-Un aspecto importante, es que se crea un archivo temporal para modificar los datos, esta acción SÍ tiene complejidad de O(n) ya que se tienen que copiar todos (y luego restaurar esos datos en el original .csv) aunque sea para modificar un solo dato.
+El programa en su conjunto tiene O((n)), ya que se crea un archivo temporal para modificar los datos y  se tienen que copiar todos (y luego restaurar esos datos en el original .csv) aunque sea para modificar un solo dato.
+Para el resto, la complejidad máxima es de O(log(n)) en el mejor de los casos, ya que después de la función de modificar datos, el BST tiene esa complejidad para eso. 
+El programa NO pasará de O(n), ya que eso da como resultado el BST asumiendo el peor de los casos para ese tipo de estructura.
 
 ### SICT0302: Toma decisiones
 #### Selecciona un algoritmo de ordenamiento adecuado al problema y lo usa correctamente.
