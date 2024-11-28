@@ -245,19 +245,30 @@ class BST {
 		return node;
    }
    
-   void inOrderTraversal(TreeNode* root, int& positionCounter, int attribute, int way) {
+void inOrderTraversal(TreeNode* root, int& positionCounter, int attribute, int way) {
     if (root != nullptr) {
-		inOrderTraversal(root->right, positionCounter, attribute, way);
-		if(positionCounter==18){
-			cout << endl << "		--- Zona de descenso ---";
-		}
-        if(attribute==1){
-			root->data.posicion = positionCounter++;
-		}
-        root->data.printData(); 
-        inOrderTraversal(root->left, positionCounter, attribute, way);
-		}
-	}
+        if (way == 0) {
+            inOrderTraversal(root->left, positionCounter, attribute, way);
+        } else {
+            inOrderTraversal(root->right, positionCounter, attribute, way);
+        }
+
+        if (positionCounter == 18) {
+            cout << endl << "		--- Zona de descenso ---";
+        }
+        if (attribute == 1 and way == 1) {
+            root->data.posicion = positionCounter++;
+        }
+
+        root->data.printData();
+
+        if (way == 0) {
+            inOrderTraversal(root->right, positionCounter, attribute, way);
+        } else {
+            inOrderTraversal(root->left, positionCounter, attribute, way);
+        }
+    }
+}
 
 
 
@@ -293,7 +304,7 @@ int main() {
 	int element = 0;
 	int command;
 	int modifier = 1;
-	int way;
+	int way = 1;
 	int arrPos[20];
 		string arrayLabels[6] = {"Pos.", "Equipo", "Pts", "GF", "GC", "DG"};
 		Team t01{};
@@ -323,7 +334,7 @@ int main() {
 		for (int i = 0; i < 20; i++) {
 			bst.insert(arregloEquipos[i],1);
 		}
-		vector<Team> sortedTeams = bst.getSortedTeams(1, 1);
+		vector<Team> sortedTeams = bst.getSortedTeams(1, way);
 		cout << endl;
 		while(modifier!=0){
 			cout << endl << endl << "Para cerrar el programa, introduce 0" << endl;
@@ -342,12 +353,16 @@ int main() {
 			else{
 				t01.asignaDatos(arregloEquipos);
 				cout << endl << endl;
+				cout << "Para orden descendente, pulse 1." << endl;
+				cout << "Para orden ascendente, pulse 0." << endl;
+				cin>>way;
+				cout << endl;
 				BST bst2;
 				t01.etiquetas(arrayLabels);
 				for (int i = 0; i < 20; i++) {
 					bst2.insert(arregloEquipos[i],command);
 				}
-				vector<Team> sortedTeams2 = bst2.getSortedTeams(command, 1);
+				vector<Team> sortedTeams2 = bst2.getSortedTeams(command, way);
 			}
 		}
     return 0;
