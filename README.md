@@ -19,13 +19,7 @@ Ejecuta el siguiente comando en la terminal:
 `./tercer_avance` 
 
 ## Descripción de las entradas del avance de proyecto
-Toda la información está contenida en el main, tan solo se utilizan el 
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <fstream>
-#include <vector>
-#include <string>, excepto las estadísticas de los equipos, que se encuentran en el archivo .csv de este repositorio. Además, permite al usuario modificar datos de equipos.
+Toda la información está contenida en el main, tan solo se utilizan el #include <iostream>, #include <iomanip>, #include <sstream>, #include <fstream>, #include <vector>, #include <string>, excepto las estadísticas de los equipos, que se encuentran en el archivo .csv de este repositorio. Además, permite al usuario modificar datos de equipos.
 
 ## Descripción de las salidas del avance de proyecto
 Despliega los resultados de la liga española de fútbol según orden descendente de puntos (orden "por defecto") y demás órdenes (ascendentes y descendentes), o sea, por goles a favor, goles en contra y diferencia de goles. Además, guarda los datos modificados por el usuario en el .csv para uso futuro.
